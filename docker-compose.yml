@@ -1,0 +1,69 @@
+version: '3.4'
+
+x-leprikon: &leprikon
+  image: leprikon/leprikon
+  depends_on:
+    - mysql
+    - redis
+    - smtprelay
+  environment:
+    DATABASE_ENGINE: django.db.backends.mysql
+    DATABASE_HOST: ''
+    DATABASE_NAME: tjrytmus
+    DATABASE_USER: tjrytmus
+    DATABASE_PASSWORD: dbpassword
+    EMAIL_HOST: smtprelay
+    EMAIL_SUBJECT_PREFIX: '[TJ Rytmus Boskovice]'
+    CACHE_LOCATION: unix:///var/run/redis/redis.sock
+    SECRET_KEY: secretkey
+    SENTRY_ENVIRONMENT: 'tjrytmus'
+    SERVER_EMAIL: '"TJ Rytmus Boskovice" <tjrytmus@leprikon.cz>'
+    SUPERVISORD_RUN: "gunicorn cron"
+  volumes:
+    - ./data:/app/data
+    - ./media:/app/htdocs/media
+    - ./static:/app/htdocs/static
+    - ./run:/app/run
+    - mysql:/var/run/mysqld
+    - redis:/var/run/redis
+
+services:
+
+  leprikon:
+    <<: *leprikon
+    build: .
+
+  leprikon-collectstatic:
+    <<: *leprikon
+    command: leprikon collectstatic --no-input
+
+  redis:
+    image: redis
+    command: bash -c "chmod 0777 /var/run/redis && redis-server --appendonly yes --unixsocket /var/run/redis/redis.sock --unixsocketperm 777"
+    volumes:
+      - ./redis:/data
+      - redis:/var/run/redis
+
+  mysql:
+    image: mariadb
+    environment:
+      MYSQL_DATABASE: tjrytmus
+      MYSQL_USER: tjrytmus
+      MYSQL_PASSWORD: dbpassword
+      MYSQL_ROOT_PASSWORD: rootdbpassword
+    volumes:
+      - mysql:/var/run/mysqld
+      - ./mysql:/var/lib/mysql
+
+  smtprelay:
+    image: juanluisbaptiste/postfix
+    environment:
+      SERVER_HOSTNAME: leprikon.cz
+      SMTP_SERVER: smtp.savana.cz
+      SMTP_PORT: 465
+      SMTP_USERNAME: tjrytmus@leprikon.cz
+      SMTP_PASSWORD: emailpassword
+
+volumes:
+  mysql:
+  redis:
