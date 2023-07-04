@@ -1,7 +1,7 @@
 version: '3.4'
 
 x-leprikon: &leprikon
-  image: leprikon/leprikon
+  image: qbsoftware/tjrytmus
   depends_on:
     - mysql
     - redis
@@ -38,8 +38,8 @@ services:
     command: leprikon collectstatic --no-input
 
   redis:
-    image: redis
-    command: bash -c "chmod 0777 /var/run/redis && redis-server --appendonly yes --unixsocket /var/run/redis/redis.sock --unixsocketperm 777"
+    image: redis:alpine
+    command: sh -c "chmod 0777 /var/run/redis && redis-server --appendonly yes --unixsocket /var/run/redis/redis.sock --unixsocketperm 777"
     volumes:
       - ./redis:/data
       - redis:/var/run/redis
