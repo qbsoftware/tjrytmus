@@ -1,4 +1,4 @@
-version: '3.4'
+version: "3.4"
 
 x-leprikon: &leprikon
   image: qbsoftware/tjrytmus
@@ -8,17 +8,18 @@ x-leprikon: &leprikon
     - smtprelay
   environment:
     DATABASE_ENGINE: django.db.backends.mysql
-    DATABASE_HOST: ''
+    DATABASE_HOST: ""
     DATABASE_NAME: tjrytmus
     DATABASE_USER: tjrytmus
     DATABASE_PASSWORD: dbpassword
     EMAIL_HOST: smtprelay
-    EMAIL_SUBJECT_PREFIX: '[TJ Rytmus Boskovice]'
+    EMAIL_SUBJECT_PREFIX: "[TJ Rytmus Boskovice]"
     CACHE_LOCATION: unix:///var/run/redis/redis.sock
     SECRET_KEY: secretkey
-    SENTRY_ENVIRONMENT: 'tjrytmus'
+    SENTRY_ENVIRONMENT: "tjrytmus"
     SERVER_EMAIL: '"TJ Rytmus Boskovice" <tjrytmus@leprikon.cz>'
     SUPERVISORD_RUN: "gunicorn cron"
+    CMSPLUGIN_FILER_MIGRATED: yes
   volumes:
     - ./data:/app/data
     - ./media:/app/htdocs/media
@@ -28,7 +29,6 @@ x-leprikon: &leprikon
     - redis:/var/run/redis
 
 services:
-
   leprikon:
     <<: *leprikon
     build: .

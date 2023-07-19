@@ -1,3 +1,7 @@
+#header {
+    border-bottom: thin solid #ddd;
+}
+
 .article-preview:after {
     clear: both;
     content: '';
