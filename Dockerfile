@@ -1,7 +1,7 @@
 ARG LEPRIKON_TAG=latest
 FROM leprikon/leprikon:$LEPRIKON_TAG
 
-MAINTAINER Jakub Dorňák <jakub.dornak@qbsoftware.cz>
+LABEL maintainer="Jakub Dorňák <jakub.dornak@qbsoftware.cz>"
 
 # install other dependencies
 COPY requirements.txt /app/requirements.txt

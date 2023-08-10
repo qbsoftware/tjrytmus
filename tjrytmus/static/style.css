@@ -1,0 +1,43 @@
+#brand {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.d-flex { display: flex; float: none; }
+.d-flex-center { justify-content: center; }
+
+.navbar .btn {
+    margin: 8px;
+}
+
+@media (min-width: 768px) {
+    #body > .container {
+        display: flex;
+        gap: 15px;
+        flex-direction: row-reverse;
+        justify-content: left;
+    }
+    #content {
+        flex: 3;
+    }
+    #sidebar {
+        flex: 1;
+    }
+}
+
+.article-preview:after {
+    clear: both;
+    content: '';
+    display: block;
+}
+
+.article-preview a img {
+    float: left;
+    margin-right: 30px;
+    margin-bottom: 15px;
+}
+
+.cmsplugin_filer_folder_list .image img {
+    margin: 15px;
+}
