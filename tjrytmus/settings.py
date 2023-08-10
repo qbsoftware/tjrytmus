@@ -31,8 +31,6 @@ CMS_ARTICLES_TEMPLATES = [
     ("cms_articles/galerie.html", "Galerie"),
 ]
 
-CMSPLUGIN_FILER_FOLDER_STYLE_CHOICES = [
-    ("list", _("List")),
-    ("gallery", _("Gallery")),
-    ("slideshow", _("Slideshow")),
+DJANGOCMS_FILE_TEMPLATES = [
+    ("jumbotron", _("Jumbotron")),
 ]

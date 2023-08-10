@@ -1,0 +1,29 @@
+{% load i18n thumbnail %}
+
+<div id="carousel-{{ instance.id }}" class="carousel slide" data-ride="carousel">
+    <!-- Indicators -->
+    <ol class="carousel-indicators">
+        {% for image in folder_files %}
+        <li data-target="#carousel-{{ instance.id }}" data-slide-to="{{ forloop.counter0 }}"{% if forloop.first %} class="active"{% endif %}></li>
+        {% endfor %}
+    </ol>
+
+    <!-- Wrapper for slides -->
+    <div class="carousel-inner" role="listbox">
+        {% for image in folder_files %}
+        <div class="item{% if forloop.first %} active{% endif %}">
+            <img src="{% thumbnail image.file 1920x330 crop='True' upscale='True' %}" width="100%"/>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- Left and right controls -->
+    <a class="left carousel-control" href="#carousel-{{ instance.id }}" role="button" data-slide="prev">
+        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+        <span class="sr-only">{% trans 'Previous' %}</span>
+    </a>
+    <a class="right carousel-control" href="#carousel-{{ instance.id }}" role="button" data-slide="next">
+        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+        <span class="sr-only">{% trans 'Next' %}</span>
+    </a>
+</div>

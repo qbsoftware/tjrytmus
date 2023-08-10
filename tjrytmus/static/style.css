@@ -41,3 +41,7 @@
 .cmsplugin_filer_folder_list .image img {
     margin: 15px;
 }
+
+.carousel-control {
+    width: 5%;
+}
