@@ -1,1 +1,1 @@
-letsencrypt certonly --webroot -w /srv/letsencrypt/htdocs -d tjrytmus.leprikon.cz
+letsencrypt certonly --webroot -w /srv/letsencrypt/htdocs -d tjrytmus.cz -d www.tjrytmus.cz
